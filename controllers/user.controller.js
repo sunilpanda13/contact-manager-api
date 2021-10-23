@@ -2,7 +2,7 @@ const user = require("../model/user.schema");
 const bcrypt = require("bcryptjs");
 const joi = require("joi");
 const jwt = require("jsonwebtoken");
-const secretKey = "contactManager"
+const { jwtSecret } = require("../config/env.config");
 
 exports.signIn = async (req,res)=>{
     const userLoginSchema = joi.object({
@@ -22,8 +22,8 @@ exports.signIn = async (req,res)=>{
                         id : user._id
                     }
                 };
-
-                const token = await jwt.sign(payload,secretKey,{expiresIn : 7200});
+                
+                const token = await jwt.sign(payload,jwtSecret,{expiresIn : 7200});
                 res.status(200).json({
                     message : "Signed in",
                     user:{

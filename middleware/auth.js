@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
-const secretKey = "contactManager";
+const { jwtSecret } = require("../config/env.config");
 
 const auth = async(req,res,next)=>{
     try{
         if(req.header("x-auth-token")){
             let token = req.header("x-auth-token");
             try{
-                await jwt.verify(token,secretKey);
+                await jwt.verify(token,jwtSecret);
                 next();
             }catch(err){
                 res.status(401).json({
