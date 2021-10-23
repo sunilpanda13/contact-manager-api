@@ -16,6 +16,12 @@ app.use('/api/contact',contacRoute);
 app.use('/api/user',userRoute);
 dbconn();
 
+app.get("/", (req, res) => {
+	res.status(200).json({
+		message: "Welcome to Sunil's Contact Manager App"
+	});
+});
+
 app.listen(port,()=>{
     console.log(`Server started at ${port}`);
 });
